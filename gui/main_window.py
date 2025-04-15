@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QSize, Qt, QTimer
-from PyQt6.QtGui import QPixmap, QIcon, QCursor, QFont
+from PyQt6.QtGui import QPixmap, QIcon, QCursor
 from PyQt6.QtWidgets import QMainWindow, QLabel, QPushButton, QWidget, QProgressBar
 
 
@@ -34,25 +34,19 @@ class MainWindow(QMainWindow):
 class SplashScreen(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Carregando...")
-        self.setFixedSize(600, 400)
-        #self.setStyleSheet("background-color: white;")
+        self.setWindowTitle("Loading...")
+        self.setFixedSize(800, 600)
+        self.setWindowIcon(QIcon("imagens/icon.png"))
 
-        # Fundo com imagem
+        # background imagem de carregamento
         self.background = QLabel(self)
-        self.background.setPixmap(QPixmap("imagens/fundo_loading.png"))  # <-- usa a tua imagem aqui
-        self.background.setGeometry(0, 0, 600, 400)
+        self.background.setPixmap(QPixmap("imagens/loading.jpeg"))
+        self.background.setGeometry(0, 0, 800, 600)
         self.background.setScaledContents(True)
 
-        # Mensagem de carregamento
-        self.label = QLabel("A iniciar o Park Out...", self)
-        self.label.setFont(QFont("Arial", 20))
-        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.label.setGeometry(0, 100, 600, 60)
-
-        # Barra de progresso
+        # Barra de loading
         self.progress = QProgressBar(self)
-        self.progress.setGeometry(100, 200, 400, 30)
+        self.progress.setGeometry(200, 350, 400, 30)
         self.progress.setMaximum(100)
         self.progress.setStyleSheet("""
             QProgressBar {
@@ -66,11 +60,11 @@ class SplashScreen(QWidget):
             }
         """)
 
-        # Timer de carregamento
+        # Tempo de carregamento
         self.counter = 0
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_progress)
-        self.timer.start(50)  # 100 × 50ms = 5 segundos
+        self.timer.start(45)
 
     def update_progress(self):
         if self.counter >= 100:
@@ -90,6 +84,7 @@ class Novajanela(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Park Out")
+        self.setWindowIcon(QIcon("imagens/icon.png"))
         self.setFixedSize(600, 900)
         self.background = QLabel(self)
         self.background.setPixmap(QPixmap("imagens/principal.png"))
@@ -100,4 +95,3 @@ class Novajanela(QMainWindow):
 
 
 
-        
